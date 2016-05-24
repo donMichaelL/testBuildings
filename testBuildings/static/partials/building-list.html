@@ -1,0 +1,138 @@
+<button data-toggle="modal" data-target="#insertBuilding" class="btn btn-circle btn-success btn-lg add-new-button"><i class="fa fa-plus" aria-hidden="true"></i></button>
+
+<div class="modal fade in" id="deleteBuilding" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Do you want to delete {{deletable.name}} ?</h4>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteBuilding(deletable.id)">Delete</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade in" id="insertBuilding" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h2>Insert new Building</h2>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" name="buildingForm" ng-submit='buildingForm.$valid && submitBuilding(building.photo)' novalidate>
+          <!--    Name-->
+          <div class="form-group" ng-class="{'has-error': buildingForm.buildingName.$dirty && buildingForm.buildingName.$invalid, 'has-success': buildingForm.buildingName.$valid }">
+              <label for="inputName" class="col-sm-2 control-label">Building Name</label>
+              <div class="col-sm-10">
+                  <input type="text" class="form-control" name="buildingName" id="inputName" placeholder="Enter Building Name" ng-model="building.name" required>
+                  <p class="help-block" ng-show="buildingForm.buildingName.$invalid">This field is required</p>
+              </div>
+          </div>
+          <!--    Country-->
+          <div class="form-group" ng-class="{'has-error':buildingForm.buildingCountry.$dirty && buildingForm.buildingCountry.$invalid, 'has-success': buildingForm.buildingCountry.$valid }">
+              <label for="inputCountry" class="col-sm-2 control-label">Building Country</label>
+              <div class="col-sm-10">
+                  <select name="buildingCountry" id="inputCountry" ng-model="building.country" ng-options="country.id as country.name for country in countries" required>
+                  </select>
+                  <p class="help-block" ng-show="buildingForm.buildingCountry.$invalid">This field is required</p>
+              </div>
+          </div>
+          <!--    Adress-->
+          <div class="form-group">
+              <label for="inputAddress" class="col-sm-2 control-label">Building Adress</label>
+              <div class="col-sm-10">
+                  <input type="text" class="form-control" name="buildingAdress" id="inputAddress" placeholder="Enter Building Address" ng-model="building.address">
+              </div>
+          </div>
+          <!-- PostCode -->
+          <div class="form-group">
+              <label for="inputPostcode" class="col-sm-2 control-label">Postcode</label>
+              <div class="col-sm-10">
+                <input type="number" class="form-control" name="buildingPostcode" id="inputPostcode" placeholder="Enter Building Postcode" ng-model="building.tk">
+              </div>
+          </div>
+          <!-- Max Evacuation Time -->
+          <div class="form-group" ng-class="{'has-error': buildingForm.buildingMaximumTime.$invalid}">
+            <label for="inputMaximumTime" class="col-sm-2 control-label">Maximum Evacuation Time</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" name="buildingMaximumTime" id="inputMaximumTime" placeholder="Enter Maximum Evacuation Time in Seconds"
+              ng-model="building.max_evacuation_time" min="0">
+              <p class="help-block" ng-show="buildingForm.buildingMaximumTime.$invalid">You must enter a positive Value</p>
+            </div>
+          </div>
+          <!-- File -->
+          <div class="form-group" ng-class="{'has-error': buildingForm.buildingImage.$invalid}">
+              <label for="inputImage" class="col-sm-2 control-label">Building Image</label>
+              <div class="col-sm-10">
+                  <input type="file" class="form-control" name="buildingImage" id="inputImage" placeholder="Enter Building Image" ng-model="building.photo"
+                    ngf-select
+                    ngf-max-size="2MB"
+                    accept="image/*"
+                  >
+                  <p class="help-block" ng-show="buildingForm.buildingImage.$invalid">Please upload an image, max 2MB</p>
+                  <div>
+                    <img ngf-thumbnail="building.photo" style="width:100px;">
+                    <button ng-click="building.photo=null" ng-show="building.photo" class="btn btn-primary">Remove</button>
+                  </div>
+                  <br>
+                  <div class="progress" ng-show="building.photo.progress>=0">
+                    <div class="progress-bar progress-bar-info" role="progressbar" style="width:{{building.photo.progress}}%;"aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                    </div>
+                  </div>
+              </div>
+          </div>
+          <!-- Submit Button -->
+          <div class="modal-footer">
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-success" ng-disabled="buildingForm.$invalid">Save</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="form-group has-feedback search-bar">
+  <span class="glyphicon glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+  <input ng-model="filterText.name" type="text" class="form-control extra-margin" placeholder="Search By Name...">
+  <br/>
+  <div>
+    <label class="sort-icons">Sort By: </label>
+    <button ng-click="orderText='updated'; reversed=true;" class="btn btn-circle"><i class="fa fa-clock-o" aria-hidden="true"></i></button>
+    <button ng-click="orderText='name'; reversed=false;" class="btn btn-circle"><i class="fa fa-text-width" aria-hidden="true"></i></button>
+    <button ng-click="orderText='country'; reversed=false;" class="btn btn-circle"><i class="fa fa-map-pin" aria-hidden="true"></i></button>
+  </div>
+</div>
+
+<div masonry masonry-options="{ gutter: 10 }" reload-on-show>
+    <div class="masonry-brick" ng-repeat="building in buildings | filter: filterText | orderBy: orderText: reversed">
+      <div class="thumbnail">
+        <button type="button" class="btn btn-danger btn-circle delete-button-building" ng-click="deleteModal(building)"><i class="fa fa-times"></i></button>
+        <a ng-href="#/buildings/{{building.id}}/"> <img ng-src="{{building.photo | returnPhoto}}" alt="Building Name" style="width:100%"></a>
+          <div class="caption">
+              <h3 class="text-center">{{building.name}}</h3>
+              <p>Country: {{building.country | countryFullName}}</p>
+              <p ng-if="building.address">Address: {{building.address}}</p>
+              <p ng-if="building.max_evacuation_time">Max Evaluation Time: <span class="label label-default">{{building.max_evacuation_time}} sec</span></p>
+              <br>
+              <div class="">
+                <div class="">
+                  <p><a ng-href="#/buildings/{{building.id}}/" class="btn btn-info btn-block" role="button">Details</a>
+                </div>
+                <div class="">
+                  <button  ng-click="deleteModal(building)" class="btn btn-outline btn-danger btn-block">Delete</button>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
+</div>

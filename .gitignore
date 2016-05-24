@@ -1,0 +1,103 @@
+
+#ignore sublime project
+*.sublime-project
+*.sublime-workspace
+
+testBuildings/static/bower_components/
+testBuildings/static/node_modules/
+testBuildings/building_images/
+testBuildings/blueprints/
+testBuildings/static/coverage/
+
+e_pres/media/
+e_pres/tests
+e_pres/e_pres/settings.py
+e_pres/e_pres/config/secrets.json
+/media/
+
+e_pres/static/bower_components
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+*.sqlite3
+.DS_Store
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+bin/
+include/
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+/build/
+/benchpress-build/
+.DS_Store
+gen_docs.disable
+test.disable
+regression/temp*.html
+performance/temp*.html
+.idea/workspace.xml
+*~
+*.swp
+angular.js.tmproj
+/node_modules/
+bower_components/
+angular.xcodeproj
+.idea
+*.iml
+.agignore
+.lvimrc
+libpeerconnection.log
+npm-debug.log
+/tmp/
+/scripts/bower/bower-*
+.vscode
+*.log
+*.stackdump

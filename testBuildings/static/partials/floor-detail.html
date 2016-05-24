@@ -1,0 +1,64 @@
+<div class="container" ng-init="editing=false;">
+  <div clas="row">
+    <div class="col-md-6">
+      <img class="img-responsive" ng-src="{{floor.blueprint}}" height="400px;"></img>
+    </div>
+    <div class="col-md-6">
+      <div ng-show="!editing">
+        <h3 class="text-center">{{floor.name}}</h3>
+        <p>Floor Number: {{floor.number}}</p>
+        <p ng-if="floor.max_evacuation_time">Maximum Evacuation Time: {{floor.max_evacuation_time}}</p>
+        <p ng-if="floor.stud_number">Number of Students: <span class="label label-default">{{floor.stud_number}} sec</span></p>
+        <button ng-click="editing=true;">Edit</button>
+      </div>
+
+      <form ng-show="editing" method="POST" name="floorForm" ng-submit='floorForm.$valid && updateFloor(editObject.blueprint)' novalidate>
+        <!-- Name -->
+        <div class="form-group" ng-class="{'has-error': floorForm.floorName.$dirty && floorForm.floorName.$invalid, 'has-success': floorForm.floorName.$valid }">
+          <input type="text" class="form-control" name="floorName" id="inputName" ng-model="editObject.name" placeholder="Enter Building Name" required>
+          <p class="help-block" ng-show="floorForm.floorName.$invalid">This field is required</p>
+        </div>
+        <!-- Number -->
+        <div class="form-group" ng-class="{'has-error': floorForm.floorNumber.$invalid}">
+          <input type="number" class="form-control" name="floorNumber" id="inputNumber" placeholder="Enter floor number"
+          ng-model="editObject.number" min="0" required>
+          <p class="help-block" ng-show="floorForm.floorNumber.$invalid">You must enter a positive Value</p>
+        </div>
+        <!-- Max Evacuation Time -->
+        <div class="form-group" ng-class="{'has-error': floorForm.floorMaximumTime.$invalid}">
+          <input type="number" class="form-control" name="floorMaximumTime" id="inputMaximumTime" placeholder="Enter Maximum Evacuation Time in Seconds"
+          ng-model="editObject.max_evacuation_time" min="0">
+          <p class="help-block" ng-show="floorForm.floorMaximumTime.$invalid">You must enter a positive Value</p>
+        </div>
+        <!-- Student Number -->
+        <div class="form-group" ng-class="{'has-error': floorForm.floorStudentNumber.$invalid}">
+            <input type="number" class="form-control" name="floorStudentNumber" id="inputStudentNumber" placeholder="Enter number of students"
+          ng-model="editObject.stud_number" min="0">
+            <p class="help-block" ng-show="floorForm.floorStudentNumber.$invalid">You must enter a positive Value</p>
+        </div>
+        <!-- File -->
+        <div class="form-group" ng-class="{'has-error': floorForm.floorImage.$invalid, 'has-success': !floorForm.floorImage.$invalid }">
+            <input type="file" class="form-control" name="floorImage" id="inputImage" placeholder="Enter Floor Blueprint" ng-model="editObject.blueprint"
+              ngf-select
+              ngf-max-size="2MB"
+              accept="image/*"
+              ng-required='required'
+            >
+            <p class="help-block" ng-show="floorForm.floorImage.$invalid">Please upload an image, max 2MB</p>
+            <div>
+              <img ngf-thumbnail="editObject.blueprint" style="width:100px;" ng-model="thumbnail">
+              <button type="button" ng-click="editObject.blueprint=undefined;required=true;" ng-show="editObject.blueprint" class="btn btn-primary">Remove</button>
+            </div>
+            <br>
+            <div class="progress" ng-show="editObject.blueprint.progress>=0">
+              <div class="progress-bar progress-bar-info" role="progressbar" style="width:{{editObject.blueprint.progress}}%;"aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+              </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success" name="action" ng-disabled="floorForm.$invalid">Update</button>
+        <button type="button" class="btn btn-default" ng-click="editing=false;">Cancel</a>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+{
+  "name": "static",
+  "authors": [
+    "Michael <michael.loukeris@icloud.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-masonry": "~0.16.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.5.5"
+  }
+}

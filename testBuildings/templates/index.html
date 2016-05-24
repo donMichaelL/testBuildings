@@ -1,0 +1,51 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html ng-app='mainApp'>
+    <head>
+        <title>Buildings homepage</title>
+        <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/css/main.css" rel="stylesheet">
+        <link href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+        <script src="/static/bower_components/jquery/dist/jquery.js"></script>
+        <script src="/static/bower_components/jquery-bridget/jquery-bridget.js"></script>
+        <script src="/static/bower_components/ev-emitter/ev-emitter.js"></script>
+        <script src="/static/bower_components/desandro-matches-selector/matches-selector.js"></script>
+        <script src="/static/bower_components/fizzy-ui-utils/utils.js"></script>
+        <script src="/static/bower_components/get-size/get-size.js"></script>
+        <script src="/static/bower_components/outlayer/item.js"></script>
+        <script src="/static/bower_components/outlayer/outlayer.js"></script>
+        <script src="/static/bower_components/masonry/masonry.js"></script>
+        <script src="/static/bower_components/imagesloaded/imagesloaded.js"></script>
+        <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+        <script src="https://code.angularjs.org/1.5.5/angular-route.min.js"></script>
+        <script src="/static/lib/ng-file-upload.min.js"></script>
+        <script src="/static/bower_components/angular-masonry/angular-masonry.js"></script>
+        <script src="/static/js/main.js"></script>
+
+
+
+    </head>
+    <body>
+
+
+        <ng-include src="'/static/partials/fragments/header.html'"></ng-include>
+
+        <div class="container" ng-view></div>
+
+
+
+
+
+
+
+
+
+
+
+    <script src="/static/js/app.js"></script>
+    <script src="/static/js/controllers.js"></script>
+    <script src="/static/js/services.js"></script>
+    <script src="/static/js/filters.js"></script>
+    </body>
+</html>
