@@ -21,7 +21,6 @@ describe('Controller:BuildingController', function(){
         'max_evacuation_time': 12
       }]);
 
-
     $scope = $rootScope.$new();
     BuildingController = $controller('BuildingController', {
       $scope: $scope,
@@ -47,7 +46,7 @@ describe('Controller:BuildingController', function(){
     expect($scope.orderText).toEqual('updated');
     expect($scope.reversed).toEqual(true);
   });
-  // 
+  //
   // it('should add new element when post', function(){
   //   $scope.building.name = "Test";
   //   $scope.building.country = "gr";

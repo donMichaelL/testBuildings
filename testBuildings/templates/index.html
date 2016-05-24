@@ -28,10 +28,11 @@
     </head>
     <body>
 
-
         <ng-include src="'/static/partials/fragments/header.html'"></ng-include>
 
-        <div class="container" ng-view></div>
+        <loading-spin style="position:fixed;top:20%;left:40%"></loading-spin>
+
+        <div ng-if="!isRouteLoading" class="container" ng-view></div>
 
 
 
@@ -47,5 +48,6 @@
     <script src="/static/js/controllers.js"></script>
     <script src="/static/js/services.js"></script>
     <script src="/static/js/filters.js"></script>
+    <script src="/static/js/directives.js"></script>
     </body>
 </html>

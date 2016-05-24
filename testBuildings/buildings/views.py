@@ -10,11 +10,14 @@ from .serializers import BuildingSerializer, FloorSerializer
 from .models import Building, Floor
 
 
+import time
+
 class BuildingListView(ListCreateAPIView):
     serializer_class = BuildingSerializer
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
+        time.sleep(2)
         if self.request.user.is_superuser:
             return Building.objects.all()
         return Building.objects.filter(user=self.request.user)
