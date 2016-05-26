@@ -13,8 +13,10 @@ angular.module('mainApp')
       });
       $rootScope.$on('$routeChangeError', function(angularEvent, current, previous, rejection){
         scope.isRouteLoading = false;
-        console.log(rejection.status);
-        $location.path('login');
+        console.log(rejection.statusText);
+        if(rejection.status == 403){
+          $location.path('login');
+        };
       });
     }
   };

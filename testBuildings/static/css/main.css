@@ -1,6 +1,14 @@
 body {
   padding-top: 100px;
 }
+.modal-open {
+ margin-left: 0px;
+ margin-right: 0px;
+ padding-left: 0px;
+ padding-right: 0px !important;
+ overflow: visible;
+ }
+
 .starter-template {
   padding: 40px 15px;
   text-align: center;
