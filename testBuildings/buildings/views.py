@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404
-from django.core import exceptions
 from rest_framework import status, serializers
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 
+from .helpers import NotAuthorized
 from .serializers import BuildingSerializer, FloorSerializer
 from .models import Building, Floor
 
@@ -44,7 +44,7 @@ class BuildingDetailView(RetrieveUpdateDestroyAPIView):
         obj = super(BuildingDetailView, self).get_object()
         if obj.user == self.request.user or self.request.user.is_superuser:
             return obj
-        raise exceptions.PermissionDenied()
+        raise NotAuthorized()
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
@@ -63,6 +63,7 @@ class BuildingDetailView(RetrieveUpdateDestroyAPIView):
         except Exception, err:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class FloorListView(ListCreateAPIView):
     serializer_class = FloorSerializer
     permission_classes = (IsAuthenticated, )
@@ -71,12 +72,13 @@ class FloorListView(ListCreateAPIView):
         building = get_object_or_404(Building, pk=self.kwargs.get('pk_building'))
         if building.user == self.request.user or self.request.user.is_superuser:
             return Floor.objects.filter(building=building)
-        raise exceptions.PermissionDenied()
+        raise NotAuthorized()
 
     def post(self, request, *args, **kwargs):
         if ('blueprint' not in request.data) or (request.data['blueprint'] == None):
             raise serializers.ValidationError({'blueprint': 'No file was submitted.'})
         return self.create(request, *args, **kwargs)
+
 
 class FloorDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = FloorSerializer
@@ -86,7 +88,7 @@ class FloorDetailView(RetrieveUpdateDestroyAPIView):
         building = get_object_or_404(Building, pk=self.kwargs.get('pk_building'))
         if building.user == self.request.user or self.request.user.is_superuser:
             return Floor.objects.filter(building=building)
-        raise exceptions.PermissionDenied()
+        raise NotAuthorized()
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)

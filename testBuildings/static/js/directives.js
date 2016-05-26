@@ -1,5 +1,5 @@
 angular.module('mainApp')
-.directive('loadingSpin', ['$rootScope', function($rootScope){
+.directive('loadingSpin', ['$rootScope', '$location', function($rootScope, $location){
   return {
     restrict: 'E',
     template: "<img ng-src='/static/img/spin.gif' ng-if='isRouteLoading'  class='loading'/>",
@@ -10,6 +10,11 @@ angular.module('mainApp')
       });
       $rootScope.$on('$routeChangeSuccess', function(){
         scope.isRouteLoading = false;
+      });
+      $rootScope.$on('$routeChangeError', function(angularEvent, current, previous, rejection){
+        scope.isRouteLoading = false;
+        console.log(rejection.status);
+        $location.path('login');
       });
     }
   };

@@ -102,8 +102,8 @@ class BuildingDetailViewTest(TestCase):
         self.log_user()
         b2 = Building.objects.filter(name='b2')[0]
         response = self.client.get(reverse('building_rest_detail', kwargs={"pk": b2.pk}))
-        self.assertEqual(response.status_code, 403)
-        self.assertEqual(response.data['detail'], 'Permission denied.')
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.data['detail'], 'Not Authorized')
 
     def test_GET_user_not_found_building(self):
         self.log_user()
@@ -157,8 +157,9 @@ class FloorPageListTest(TestCase):
     def test_GET_user_cannot_see_other_user_floors(self):
         user = self.log_user()
         response = self.client.get(reverse('floor_rest_list', kwargs={"pk_building": Building.objects.filter(name="b2")[0].pk}))
-        self.assertEqual(response.status_code, 403)
-        self.assertEqual(response.data['detail'], 'Permission denied.')
+        self.assertEqual(response.status_code, 401)
+        print type(response.data['detail'])
+        self.assertEqual(response.data['detail'], u'Not Authorized')
 
     def test_GET_admin_see_floors_only_from_the_buildings(self):
         self.client.login(username='myuser', password='password')
@@ -260,8 +261,8 @@ class FloorDetailViewTest(TestCase):
         self.log_user()
         b2 = Building.objects.filter(name='b2')[0]
         response = self.client.get(reverse('floor_rest_detail',  kwargs={"pk_building": b2.pk, "pk": b2.floor_set.first().pk}))
-        self.assertEqual(response.status_code, 403)
-        self.assertEqual(response.data['detail'], 'Permission denied.')
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.data['detail'], u'Not Authorized')
 
     def test_GET_admin_can_see_everything(self):
         self.client.login(username='myuser', password='password')
