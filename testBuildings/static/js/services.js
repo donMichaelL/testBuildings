@@ -50,7 +50,7 @@ angular.module('mainApp')
       });
   },
   'returnSingleBuilding': function(id){
-    return $http.get('buildings/'+id);
+    return $http.get('buildings/'+id + '/');
   },
   'updateBuilding': function(building){
     return Upload.upload({
