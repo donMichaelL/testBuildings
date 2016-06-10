@@ -3,7 +3,7 @@ angular.module('mainApp')
   $scope.user = {};
 
   $scope.login = function(){
-    loginFactory.login($scope.user).then(function(resposne){
+    loginFactory.login($scope.user).then(function(response){
         console.log(response.data);
     },function(response){
       console.log(response.data);

@@ -33,7 +33,7 @@ angular.module('mainApp')
 .factory('loginFactory', ['$http', function($http){
   return {
     'login': function(user){
-      return $http.post('login', user);
+      return $http.post('accounts/login/', user);
     }
   };
 }])
