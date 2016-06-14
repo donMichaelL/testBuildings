@@ -16,5 +16,6 @@ class AccountLoginView(GenericAPIView):
 
 class AccountLogoutView(GenericAPIView):
     def post(self, request, *args, **kwargs):
+        print 'here i am'
         logout(request)
         return Response('Loggout Out', status=200)

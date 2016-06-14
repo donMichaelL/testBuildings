@@ -1,4 +1,19 @@
 angular.module('mainApp')
+.controller('MainController', ['$scope', 'loginFactory', '$location', function($scope, loginFactory, $location){
+  $scope.returnIsLoggedIn = function(){
+    return loginFactory.returnIsLoggedIn();
+  }
+
+  $scope.logoutUser = function(){
+    loginFactory.logoutUser().then(function(response){
+      $location.path('/login');
+      $('#logoutModal').modal('hide');
+    }, function(response){
+      $('#logoutModal').modal('hide');
+    });
+  };
+
+}])
 .controller('LoginController', ['$scope', 'loginFactory', '$location', function($scope, loginFactory, $location){
   $scope.user = {};
 
@@ -8,11 +23,6 @@ angular.module('mainApp')
     },function(response){
       console.log(response.data);
     })
-  }
-}])
-.controller('NavBarController', ['$scope', 'loginFactory', function($scope, loginFactory){
-  $scope.returnIsLoggedIn = function(){
-    return loginFactory.returnIsLoggedIn();
   }
 }])
 .controller('BuildingController', ['$scope', 'buildingFactory', 'countryAcronyms','$timeout', 'buildingsList',

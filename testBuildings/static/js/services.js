@@ -1,6 +1,9 @@
 angular.module('mainApp')
-.factory('getCookiesFactory',[ function(){
+.factory('getCookiesFactory',['$http', function($http){
   return {
+    'setHttpHeaders': function(name){
+      $http.defaults.headers.common['X-CSRFToken'] = this.getCookie('csrftoken');
+    },
     getCookie: function(name){
       var cookieValue = null;
       if (document.cookie && document.cookie != '') {
@@ -30,25 +33,36 @@ angular.module('mainApp')
     }
   };
 }])
-.factory('loginFactory', ['$http', '$q', function($http, $q){
-  var isLoggedIn = false;
+.factory('loginFactory', ['$http', '$q', 'getCookiesFactory', function($http, $q, getCookiesFactory){
+  var isLoggedIn = true;
   return {
     'returnIsLoggedIn': function(){
-      console.log('hello');
       return isLoggedIn;
     },
     'login': function(user){
       var deferred = $q.defer();
-      console.log('hello');
       $http.post('accounts/login/', user).then(
         function(response){
           isLoggedIn = true;
+          getCookiesFactory.setHttpHeaders();
           deferred.resolve(response);
         }, function(response){
           isLoggedIn = false;
           deferred.reject(response);
         }
       );
+      return deferred.promise;
+    },
+    'logoutUser': function(){
+      var deferred = $q.defer();
+      $http.post('accounts/logout/').then(
+        function(response){
+          isLoggedIn = false;
+          deferred.resolve(response);
+        }, function(response){
+          console.log(response);
+          deferred.reject(response);
+        });
       return deferred.promise;
     }
   };

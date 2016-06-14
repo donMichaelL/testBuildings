@@ -40,6 +40,6 @@ angular.module('mainApp', ['ngRoute', 'ngFileUpload', 'wu.masonry'])
     .otherwise({redirectTo: '/'});
 }])
 .run(['$http', 'getCookiesFactory', function($http, getCookiesFactory){
-  $http.defaults.headers.common['X-CSRFToken'] = getCookiesFactory.getCookie('csrftoken');
+  getCookiesFactory.setHttpHeaders();
 }])
 ;
