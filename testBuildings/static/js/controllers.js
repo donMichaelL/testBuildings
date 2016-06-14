@@ -10,6 +10,11 @@ angular.module('mainApp')
     })
   }
 }])
+.controller('NavBarController', ['$scope', 'loginFactory', function($scope, loginFactory){
+  $scope.returnIsLoggedIn = function(){
+    return loginFactory.returnIsLoggedIn();
+  }
+}])
 .controller('BuildingController', ['$scope', 'buildingFactory', 'countryAcronyms','$timeout', 'buildingsList',
   function($scope, buildingFactory, countryAcronyms, $timeout, buildingsList){
 

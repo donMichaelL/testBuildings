@@ -10,10 +10,10 @@
       <a class="navbar-brand" href="#">Project name</a>
     </div>
     <div id="navbar" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav" ng-controller="NavBarController">
         <li class="active"><a href="#/">Homepage</a></li>
         <li><a href="#/buildings">Buildings</a></li>
-        <li><a href="#/login">Login</a></li>
+        <li><a href="#/login" ng-show="!returnIsLoggedIn()">Login</a></li>
       </ul>
     </div><!--/.nav-collapse -->
   </div>

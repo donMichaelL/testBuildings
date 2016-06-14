@@ -34,6 +34,7 @@ angular.module('mainApp')
   var isLoggedIn = false;
   return {
     'returnIsLoggedIn': function(){
+      console.log('hello');
       return isLoggedIn;
     },
     'login': function(user){
