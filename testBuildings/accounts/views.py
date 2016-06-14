@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
 
@@ -12,3 +12,9 @@ class AccountLoginView(GenericAPIView):
             return Response('Logged In', status=200)
         else:
             return Response("Error", status=401)
+
+
+class AccountLogoutView(GenericAPIView):
+    def post(self, request, *args, **kwargs):
+        logout(request)
+        return Response('Loggout Out', status=200)
