@@ -1,10 +1,10 @@
 angular.module('mainApp')
-.controller('LoginController', ['$scope', 'loginFactory', function($scope, loginFactory){
+.controller('LoginController', ['$scope', 'loginFactory', '$location', function($scope, loginFactory, $location){
   $scope.user = {};
 
   $scope.login = function(){
     loginFactory.login($scope.user).then(function(response){
-        console.log(response.data);
+        $location.path('/buildings');
     },function(response){
       console.log(response.data);
     })

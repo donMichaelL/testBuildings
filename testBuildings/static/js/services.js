@@ -30,10 +30,25 @@ angular.module('mainApp')
     }
   };
 }])
-.factory('loginFactory', ['$http', function($http){
+.factory('loginFactory', ['$http', '$q', function($http, $q){
+  var isLoggedIn = false;
   return {
+    'returnIsLoggedIn': function(){
+      return isLoggedIn;
+    },
     'login': function(user){
-      return $http.post('accounts/login/', user);
+      var deferred = $q.defer();
+      console.log('hello');
+      $http.post('accounts/login/', user).then(
+        function(response){
+          isLoggedIn = true;
+          deferred.resolve(response);
+        }, function(response){
+          isLoggedIn = false;
+          deferred.reject(response);
+        }
+      );
+      return deferred.promise;
     }
   };
 }])

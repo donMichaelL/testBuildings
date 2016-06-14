@@ -6,10 +6,9 @@ from rest_framework.generics import GenericAPIView
 
 class AccountLoginView(GenericAPIView):
     def post(self, request, *args, **kwargs):
-        print request.data['username']
         user = authenticate(username=request.data['username'], password=request.data['password'])
         if user.is_active:
             login(request, user)
             return Response('Logged In', status=200)
         else:
-            return Response("ok", status=200)
+            return Response("Error", status=401)
