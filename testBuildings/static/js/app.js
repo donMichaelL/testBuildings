@@ -5,7 +5,17 @@ angular.module('mainApp', ['ngRoute', 'ngFileUpload', 'wu.masonry'])
     })
     .when('/login', {
       templateUrl: 'static/partials/login.html',
-      controller: 'LoginController'
+      controller: 'LoginController',
+      resolve : ['loginFactory', '$location', function(loginFactory, $location){
+        loginFactory.returnIsLoggedInServer().then(
+         function(response){
+           if (response){
+             $location.path('/buildings');
+           }
+         }, function(response){
+         }
+       );
+      }]
     })
     .when('/buildings', {
         templateUrl: 'static/partials/building-list.html',
