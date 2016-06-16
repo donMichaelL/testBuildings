@@ -19,3 +19,10 @@ class AccountLogoutView(GenericAPIView):
         print 'here i am'
         logout(request)
         return Response('Loggout Out', status=200)
+
+
+class AccountDecideLoggedIn(GenericAPIView):
+    def get(self, request, *args, **kwargs):
+        if request.user.is_anonymous():
+            return Response('false', status=200)
+        return Response('true', status=200)

@@ -1,11 +1,24 @@
 angular.module('mainApp')
 .controller('MainController', ['$scope', 'loginFactory', '$location', function($scope, loginFactory, $location){
-  $scope.returnIsLoggedIn = function(){
-    return loginFactory.returnIsLoggedIn();
+  // $scope.returnIsLoggedIn = function(){
+  //   console.log('error');
+  //   return loginFactory.returnIsLoggedIn();
+  // }
+
+  $scope.checkUser = function(){
+     loginFactory.returnIsLoggedIn().then(
+      function(response){
+        $scope.isLoggedIn = response;
+      }, function(response){
+        $scope.isLoggedIn = response;
+      }
+    );
   }
+
 
   $scope.logoutUser = function(){
     loginFactory.logoutUser().then(function(response){
+      $scope.checkUser();
       $location.path('/login');
       $('#logoutModal').modal('hide');
     }, function(response){
@@ -19,7 +32,8 @@ angular.module('mainApp')
 
   $scope.login = function(){
     loginFactory.login($scope.user).then(function(response){
-        $location.path('/buildings');
+      $scope.$parent.checkUser();
+      $location.path('/buildings');
     },function(response){
       console.log(response.data);
     })

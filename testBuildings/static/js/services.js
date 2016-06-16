@@ -34,10 +34,20 @@ angular.module('mainApp')
   };
 }])
 .factory('loginFactory', ['$http', '$q', 'getCookiesFactory', function($http, $q, getCookiesFactory){
-  var isLoggedIn = true;
+  var isLoggedIn = undefined;
   return {
     'returnIsLoggedIn': function(){
-      return isLoggedIn;
+      var deferred = $q.defer();
+      $http.get('accounts/isLoggedIn/').then(
+        function(response){
+          isLoggedIn = (response.data == 'true');
+          deferred.resolve(isLoggedIn);
+        }, function(response){
+          isLoggedIn = false;
+          deferred.resolve(isLoggedIn);
+        }
+      );
+      return deferred.promise;
     },
     'login': function(user){
       var deferred = $q.defer();
