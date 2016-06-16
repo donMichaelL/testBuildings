@@ -1,18 +1,16 @@
 angular.module('mainApp')
 .controller('MainController', ['$scope', 'loginFactory', '$location', function($scope, loginFactory, $location){
-  // $scope.returnIsLoggedIn = function(){
-  //   console.log('error');
-  //   return loginFactory.returnIsLoggedIn();
-  // }
+
+    loginFactory.returnIsLoggedInServer().then(
+     function(response){
+       $scope.isLoggedIn = response;
+     }, function(response){
+       $scope.isLoggedIn = response;
+     }
+   );
 
   $scope.checkUser = function(){
-     loginFactory.returnIsLoggedIn().then(
-      function(response){
-        $scope.isLoggedIn = response;
-      }, function(response){
-        $scope.isLoggedIn = response;
-      }
-    );
+     $scope.isLoggedIn = loginFactory.returnIsLoggedIn();
   }
 
 

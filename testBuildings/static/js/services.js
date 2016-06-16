@@ -37,21 +37,19 @@ angular.module('mainApp')
   var isLoggedIn = undefined;
   return {
     'returnIsLoggedIn': function(){
+      return isLoggedIn;
+    },
+    'returnIsLoggedInServer': function(){
       var deferred = $q.defer();
-      if(isLoggedIn == undefined){
-        $http.get('accounts/isLoggedIn/').then(
-          function(response){
-            isLoggedIn = (response.data == 'true');
-            deferred.resolve(isLoggedIn);
-          }, function(response){
-            isLoggedIn = false;
-            deferred.resolve(isLoggedIn);
-          }
-        );
-      }
-      else{
-        deferred.resolve(isLoggedIn);
-      }
+      $http.get('accounts/isLoggedIn/').then(
+        function(response){
+          isLoggedIn = (response.data == 'true');
+          deferred.resolve(isLoggedIn);
+        }, function(response){
+          isLoggedIn = false;
+          deferred.resolve(isLoggedIn);
+        }
+      );
       return deferred.promise;
     },
     'login': function(user){
