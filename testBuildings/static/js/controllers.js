@@ -33,7 +33,7 @@ angular.module('mainApp')
       $scope.$parent.checkUser();
       $location.path('/buildings');
     },function(response){
-      console.log(response.data);
+      alert(response.data);
     })
   }
 }])
